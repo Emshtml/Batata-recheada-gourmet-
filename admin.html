@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Painel Admin - Batata Gourmet</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link 
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    >
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-amber-50 text-gray-800 font-sans min-h-screen">
+
+    <!-- ===================================== -->
+    <!-- TELA LOGIN -->
+    <!-- ===================================== -->
+
+    <div 
+        id="tela-login"
+        class="fixed inset-0 bg-amber-950 flex items-center justify-center p-4 z-50"
+    >
+
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md animate-fade-in">
+
+            <div class="text-center mb-6">
+
+                <div class="bg-yellow-100 text-yellow-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+
+                <h2 class="text-2xl font-bold text-gray-900">
+                    Admin Batata Gourmet
+                </h2>
+
+                <p class="text-gray-500 text-sm">
+                    Insira suas credenciais de acesso
+                </p>
+            </div>
+
+            <form id="form-login" class="space-y-4">
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">
+                        Usuário
+                    </label>
+
+                    <input 
+                        type="text"
+                        id="login-usuario"
+                        value="admin"
+                        class="w-full border rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-yellow-500 outline-none"
+                    >
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">
+                        Senha
+                    </label>
+
+                    <input 
+                        type="password"
+                        id="login-senha"
+                        value="123456"
+                        class="w-full border rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-yellow-500 outline-none"
+                    >
+                </div>
+
+                <p id="erro-login" class="text-red-500 text-xs hidden">
+                    * Usuário ou senha incorretos.
+                </p>
+
+                <button 
+                    type="submit"
+                    class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2.5 rounded-xl transition-all shadow"
+                >
+                    Entrar no Painel
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- PAINEL PRINCIPAL -->
+    <!-- ===================================== -->
+
+    <div 
+        id="painel-principal"
+        class="hidden flex min-h-screen flex-col md:flex-row"
+    >
+
+        <!-- ===================================== -->
+        <!-- SIDEBAR -->
+        <!-- ===================================== -->
+
+        <aside class="w-full md:w-64 bg-amber-950 text-white flex flex-col shadow-xl">
+
+            <div class="p-5 border-b border-amber-900 flex items-center gap-3">
+
+                <i class="fa-solid fa-bowl-food text-yellow-400 text-xl"></i>
+
+                <span class="font-bold text-lg tracking-wide">
+                    Batata Admin
+                </span>
+            </div>
+
+            <nav id="menu-navegacao" class="flex-1 p-4 space-y-1">
+
+                <button 
+                    data-aba="dashboard"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm text-left bg-yellow-500 text-white"
+                >
+                    <i class="fa-solid fa-chart-pie w-5"></i>
+                    Dashboard
+                </button>
+
+                <button 
+                    data-aba="pedidos"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm text-left text-gray-300 hover:bg-amber-900 hover:text-white"
+                >
+                    <i class="fa-solid fa-receipt w-5"></i>
+
+                    Pedidos
+
+                    <span 
+                        id="badge-pedidos"
+                        class="bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-full ml-auto"
+                    >
+                        5
+                    </span>
+                </button>
+
+                <button 
+                    data-aba="analytics"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm text-left text-gray-300 hover:bg-amber-900 hover:text-white"
+                >
+                    <i class="fa-solid fa-chart-line w-5"></i>
+                    Analytics
+                </button>
+
+                <button 
+                    data-aba="produtos"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm text-left text-gray-300 hover:bg-amber-900 hover:text-white"
+                >
+                    <i class="fa-solid fa-burger w-5"></i>
+                    Cardápio
+                </button>
+
+                <button 
+                    data-aba="cupons"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm text-left text-gray-300 hover:bg-amber-900 hover:text-white"
+                >
+                    <i class="fa-solid fa-ticket w-5"></i>
+                    Cupons
+                </button>
+            </nav>
+
+            <div class="p-4 border-t border-amber-900">
+
+                <button 
+                    id="btn-logout"
+                    class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-yellow-300 hover:bg-yellow-500/10 hover:text-yellow-200 transition-all text-left"
+                >
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Sair do Sistema
+                </button>
+            </div>
+        </aside>
+
+        <!-- ===================================== -->
+        <!-- CONTEÚDO -->
+        <!-- ===================================== -->
+
+        <main class="flex-1 p-6 md:p-8 overflow-y-auto max-h-screen">
+
+            <!-- ===================================== -->
+            <!-- DASHBOARD -->
+            <!-- ===================================== -->
+
+            <section id="aba-dashboard" class="space-y-6">
+
+                <h1 class="text-3xl font-bold text-amber-950">
+                    Visão Geral da Batata Gourmet
+                </h1>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                    <!-- CARD 1 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-yellow-100 flex items-center justify-between">
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                Faturamento Hoje
+                            </p>
+
+                            <h3 class="text-2xl font-bold text-gray-900 mt-1">
+                                R$ 2.480,90
+                            </h3>
+                        </div>
+
+                        <div class="p-3 bg-green-50 text-green-600 rounded-xl text-xl">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-yellow-100 flex items-center justify-between">
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                Pedidos Finalizados
+                            </p>
+
+                            <h3 class="text-2xl font-bold text-gray-900 mt-1">
+                                47
+                            </h3>
+                        </div>
+
+                        <div class="p-3 bg-blue-50 text-blue-600 rounded-xl text-xl">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-yellow-100 flex items-center justify-between">
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                Ticket Médio
+                            </p>
+
+                            <h3 class="text-2xl font-bold text-gray-900 mt-1">
+                                R$ 52,80
+                            </h3>
+                        </div>
+
+                        <div class="p-3 bg-yellow-50 text-yellow-600 rounded-xl text-xl">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                    </div>
+
+                    <!-- CARD 4 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-yellow-100 flex items-center justify-between">
+
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                Cupons Ativos
+                            </p>
+
+                            <h3 
+                                class="text-2xl font-bold text-gray-900 mt-1"
+                                id="dash-total-cupons"
+                            >
+                                4
+                            </h3>
+                        </div>
+
+                        <div class="p-3 bg-purple-50 text-purple-600 rounded-xl text-xl">
+                            <i class="fa-solid fa-ticket"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================== -->
+            <!-- PEDIDOS -->
+            <!-- ===================================== -->
+
+            <section id="aba-pedidos" class="hidden space-y-6">
+
+                <h1 class="text-3xl font-bold text-amber-950">
+                    Pedidos Batata Gourmet
+                </h1>
+
+                <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full text-left border-collapse">
+
+                            <thead>
+                                <tr class="bg-yellow-50 border-b text-xs font-semibold uppercase text-gray-500 tracking-wider">
+                                    <th class="p-4">ID</th>
+                                    <th class="p-4">Itens</th>
+                                    <th class="p-4">Endereço</th>
+                                    <th class="p-4">Total</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody 
+                                id="tabela-pedidos"
+                                class="divide-y text-sm text-gray-700"
+                            >
+                                <!-- JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================== -->
+            <!-- ANALYTICS -->
+            <!-- ===================================== -->
+
+            <section id="aba-analytics" class="hidden space-y-6">
+
+                <h1 class="text-3xl font-bold text-amber-950">
+                    Analytics Batata Gourmet
+                </h1>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border">
+
+                        <h3 class="font-bold text-gray-800 mb-4">
+                            Vendas dos Últimos Meses
+                        </h3>
+
+                        <canvas id="chart-vendas"></canvas>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border">
+
+                        <h3 class="font-bold text-gray-800 mb-4">
+                            Sabores Mais Vendidos
+                        </h3>
+
+                        <canvas id="chart-produtos"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================== -->
+            <!-- PRODUTOS -->
+            <!-- ===================================== -->
+
+            <section id="aba-produtos" class="hidden space-y-6">
+
+                <div class="flex justify-between items-center">
+
+                    <h1 class="text-3xl font-bold text-amber-950">
+                        Gestão do Cardápio
+                    </h1>
+
+                    <button 
+                        id="btn-novo-produto"
+                        class="bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-bold px-4 py-2 rounded-xl shadow transition-all"
+                    >
+                        + Nova Batata
+                    </button>
+                </div>
+
+                <div 
+                    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
+                    id="grid-admin-produtos"
+                >
+                    <!-- JS -->
+                </div>
+            </section>
+
+            <!-- ===================================== -->
+            <!-- CUPONS -->
+            <!-- ===================================== -->
+
+            <section id="aba-cupons" class="hidden space-y-6">
+
+                <h1 class="text-3xl font-bold text-amber-950">
+                    Gerenciador de Cupons
+                </h1>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- FORM -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border h-fit">
+
+                        <h3 class="font-bold text-gray-800 mb-4">
+                            Criar Novo Cupom
+                        </h3>
+
+                        <form id="form-cupom" class="space-y-4">
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-600 mb-1 uppercase">
+                                    Código
+                                </label>
+
+                                <input 
+                                    type="text"
+                                    id="cupom-codigo"
+                                    placeholder="EX: BATATA10"
+                                    class="w-full border rounded-xl px-3 py-2 text-sm uppercase outline-none focus:ring-2 focus:ring-yellow-500"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-600 mb-1 uppercase">
+                                    Desconto (R$)
+                                </label>
+
+                                <input 
+                                    type="number"
+                                    id="cupom-valor"
+                                    placeholder="10.00"
+                                    step="0.01"
+                                    class="w-full border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-yellow-500"
+                                >
+                            </div>
+
+                            <button 
+                                type="submit"
+                                class="w-full bg-amber-950 hover:bg-amber-900 text-white font-bold py-2 rounded-xl transition-all text-sm"
+                            >
+                                Salvar Cupom
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- TABELA -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border overflow-hidden">
+
+                        <table class="w-full text-left border-collapse">
+
+                            <thead>
+                                <tr class="bg-yellow-50 border-b text-xs font-semibold uppercase text-gray-500 tracking-wider">
+                                    <th class="p-4">Código</th>
+                                    <th class="p-4">Desconto</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody 
+                                id="tabela-cupons"
+                                class="divide-y text-sm text-gray-700"
+                            >
+                                <!-- JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>
