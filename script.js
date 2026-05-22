@@ -1,380 +1,587 @@
-// ===============================
-// BANCO DE DADOS - BATATA GOURMET
-// ===============================
+// ======================================
+// DADOS MOCKADOS - BATATA GOURMET
+// ======================================
 
-const produtos = [
-    {{
-    id: 1,
-    nome: "Batata Cheddar Bacon",
-    descricao: "Batata recheada com cheddar cremoso, bacon crocante e cebolinha fresca.",
-    preco: 32.90,
-    imagem: "./assets/img/Gemini_Generated_Image_2yz4w52yz4w52yz4 (7).png"
-},
+let pedidos = [
+    {
+        id: 2041,
+        itens: "1x Batata Cheddar Bacon, 1x Coca-Cola",
+        endereco: "Av. Paulista, 1000 - Apto 42",
+        total: 38.90,
+        status: "Pendente"
+    },
 
+    {
+        id: 2040,
+        itens: "2x Batata Frango Catupiry",
+        endereco: "Rua Augusta, 540",
+        total: 69.80,
+        status: "Preparando"
+    },
+
+    {
+        id: 2039,
+        itens: "1x Batata Costela Barbecue",
+        endereco: "Rua Oscar Freire, 200",
+        total: 39.90,
+        status: "Concluído"
+    }
+];
+
+let cupons = [
+    {
+        codigo: "BATATA10",
+        valor: 10.00,
+        ativo: true
+    },
+
+    {
+        codigo: "GOURMET5",
+        valor: 5.00,
+        ativo: true
+    },
+
+    {
+        codigo: "CHEDDAR15",
+        valor: 15.00,
+        ativo: false
+    }
+];
+
+// ======================================
+// PRODUTOS DO CARDÁPIO
+// ======================================
+
+let produtosAdmin = [
+
+    {
+        id: 1,
+        nome: "Batata Cheddar Bacon",
+        preco: 32.90,
+        imagem: "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?q=80&w=1000"
+    },
+
+    {
         id: 2,
         nome: "Batata Frango Catupiry",
-        descricao: "Frango desfiado temperado com Catupiry original e queijo gratinado.",
         preco: 34.90,
         imagem: "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1000"
     },
 
     {
         id: 3,
-        nome: "Batata Calabresa Suprema",
-        descricao: "Calabresa acebolada, mussarela derretida e molho especial da casa.",
-        preco: 33.90,
-        imagem: "https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=1000"
-    },
-
-    {
-        id: 4,
         nome: "Batata Costela Barbecue",
-        descricao: "Costela desfiada ao molho barbecue com cheddar e cebola crispy.",
         preco: 39.90,
         imagem: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?q=80&w=1000"
     },
 
     {
-        id: 5,
-        nome: "Batata Strogonoff Gourmet",
-        descricao: "Strogonoff cremoso de carne com batata palha e parmesão ralado.",
-        preco: 37.90,
-        imagem: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000"
-    },
-
-    {
-        id: 6,
-        nome: "Batata Vegetariana Premium",
-        descricao: "Brócolis, milho, champignon, queijo e molho branco artesanal.",
-        preco: 31.90,
-        imagem: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1000"
-    },
-
-    {
-        id: 7,
+        id: 4,
         nome: "Batata Camarão Especial",
-        descricao: "Camarões salteados no alho com requeijão cremoso e queijo gratinado.",
         preco: 44.90,
         imagem: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000"
-    },
-
-    {
-        id: 8,
-        nome: "Batata Filé Mignon",
-        descricao: "Cubos de filé mignon ao molho especial com queijo premium gratinado.",
-        preco: 42.90,
-        imagem: "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1000"
     }
 ];
 
-let carrinho = [];
+// ======================================
+// LOGIN
+// ======================================
 
-// ===============================
-// ELEMENTOS DOM
-// ===============================
+const formLogin = document.getElementById("form-login");
 
-const cardapioContainer = document.getElementById("cardapio");
-const modalCarrinho = document.getElementById("modal-carrinho");
-const btnVerCarrinho = document.getElementById("btn-ver-carrinho");
-const btnFecharModal = document.getElementById("btn-fechar-modal");
-const itensCarrinhoContainer = document.getElementById("itens-carrinho");
-const totalBarra = document.getElementById("total-barra");
-const totalModal = document.getElementById("total-modal");
-const contadorCarrinho = document.getElementById("contador-carrinho");
-const inputEndereco = document.getElementById("input-endereco");
-const avisoEndereco = document.getElementById("aviso-endereco");
-const btnFinalizarPedido = document.getElementById("btn-finalizar-pedido");
+const telaLogin = document.getElementById("tela-login");
 
-// ===============================
-// RENDERIZAR CARDÁPIO
-// ===============================
+const painelPrincipal =
+    document.getElementById("painel-principal");
 
-function renderizarCardapio() {
+const erroLogin =
+    document.getElementById("erro-login");
 
-    cardapioContainer.innerHTML = "";
+formLogin.addEventListener("submit", (e) => {
 
-    produtos.forEach(produto => {
+    e.preventDefault();
+
+    const usuario =
+        document.getElementById("login-usuario").value;
+
+    const senha =
+        document.getElementById("login-senha").value;
+
+    if (usuario === "admin" && senha === "123456") {
+
+        telaLogin.classList.add("hidden");
+
+        painelPrincipal.classList.remove("hidden");
+
+        inicializarPainel();
+
+    } else {
+
+        erroLogin.classList.remove("hidden");
+    }
+});
+
+document.getElementById("btn-logout")
+.addEventListener("click", () => {
+
+    window.location.reload();
+});
+
+// ======================================
+// NAVEGAÇÃO ENTRE ABAS
+// ======================================
+
+const botoesMenu =
+    document.querySelectorAll("#menu-navegacao button");
+
+const secoesAbas =
+    document.querySelectorAll("main > section");
+
+botoesMenu.forEach(botao => {
+
+    botao.addEventListener("click", () => {
+
+        const abaAlvo =
+            botao.getAttribute("data-id")
+            || botao.getAttribute("data-aba");
+
+        // RESET VISUAL MENU
+
+        botoesMenu.forEach(b => {
+
+            b.className =
+                "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm text-left text-gray-300 hover:bg-amber-900 hover:text-white";
+        });
+
+        // BOTÃO ATIVO
+
+        botao.className =
+            "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm text-left bg-yellow-500 text-white";
+
+        // SEÇÕES
+
+        secoesAbas.forEach(secao => {
+
+            if (secao.id === `aba-${abaAlvo}`) {
+
+                secao.classList.remove("hidden");
+
+            } else {
+
+                secao.classList.add("hidden");
+            }
+        });
+    });
+});
+
+// ======================================
+// INICIALIZAÇÃO
+// ======================================
+
+function inicializarPainel() {
+
+    renderizarPedidos();
+
+    renderizarProdutos();
+
+    renderizarCupons();
+
+    inicializarGraficos();
+}
+
+// ======================================
+// PEDIDOS
+// ======================================
+
+function renderizarPedidos() {
+
+    const tabela =
+        document.getElementById("tabela-pedidos");
+
+    tabela.innerHTML = "";
+
+    pedidos.forEach(p => {
+
+        const tr = document.createElement("tr");
+
+        tr.className =
+            "border-b hover:bg-yellow-50 transition-all";
+
+        let badgeColor =
+            p.status === "Pendente"
+            ? "bg-yellow-100 text-yellow-700"
+            : "bg-blue-100 text-blue-700";
+
+        if (p.status === "Concluído") {
+
+            badgeColor =
+                "bg-green-100 text-green-700";
+        }
+
+        tr.innerHTML = `
+            <td class="p-4 font-bold text-gray-900">
+                #${p.id}
+            </td>
+
+            <td class="p-4 font-medium">
+                ${p.itens}
+            </td>
+
+            <td class="p-4 text-xs text-gray-500 max-w-xs truncate">
+                ${p.endereco}
+            </td>
+
+            <td class="p-4 font-bold text-yellow-600">
+                R$ ${p.total.toFixed(2)}
+            </td>
+
+            <td class="p-4">
+                <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${badgeColor}">
+                    ${p.status}
+                </span>
+            </td>
+
+            <td class="p-4 text-right space-x-1">
+
+                ${
+                    p.status !== "Concluído"
+
+                    ? `
+                    <button
+                        onclick="avancarStatus(${p.id})"
+                        class="bg-amber-950 hover:bg-amber-900 text-white text-xs px-2.5 py-1.5 rounded-lg transition-all"
+                    >
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    `
+
+                    : ""
+                }
+            </td>
+        `;
+
+        tabela.appendChild(tr);
+    });
+
+    document.getElementById("badge-pedidos")
+    .textContent =
+        pedidos.filter(p =>
+            p.status !== "Concluído").length;
+}
+
+// ======================================
+// AVANÇAR STATUS
+// ======================================
+
+window.avancarStatus = (id) => {
+
+    const pedido =
+        pedidos.find(p => p.id === id);
+
+    if (pedido.status === "Pendente") {
+
+        pedido.status = "Preparando";
+
+    } else if (pedido.status === "Preparando") {
+
+        pedido.status = "Concluído";
+    }
+
+    renderizarPedidos();
+};
+
+// ======================================
+// PRODUTOS
+// ======================================
+
+function renderizarProdutos() {
+
+    const grid =
+        document.getElementById("grid-admin-produtos");
+
+    grid.innerHTML = "";
+
+    produtosAdmin.forEach(prod => {
 
         const div = document.createElement("div");
 
         div.className =
-            "produto-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-amber-100 flex flex-col";
+            "bg-white p-4 rounded-2xl border border-yellow-100 shadow-sm flex items-center gap-4";
 
         div.innerHTML = `
-            <img 
-                src="${produto.imagem}" 
-                alt="${produto.nome}" 
-                class="w-full h-52 object-cover"
+            <img
+                src="${prod.imagem}"
+                class="w-16 h-16 rounded-xl object-cover"
             >
 
-            <div class="p-5 flex flex-col flex-1 justify-between">
-
-                <div>
-                    <h3 class="font-bold text-xl text-amber-900 mb-2">
-                        ${produto.nome}
-                    </h3>
-
-                    <p class="text-gray-500 text-sm leading-relaxed mb-5">
-                        ${produto.descricao}
-                    </p>
-                </div>
-
-                <div class="flex items-center justify-between mt-auto">
-
-                    <span class="font-bold text-2xl text-yellow-600">
-                        R$ ${produto.preco.toFixed(2).replace('.', ',')}
-                    </span>
-
-                    <button 
-                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition-all active:scale-95 btn-add"
-                        data-id="${produto.id}"
-                    >
-                        <i class="fa-solid fa-plus mr-1"></i>
-                        Adicionar
-                    </button>
-                </div>
-            </div>
-        `;
-
-        cardapioContainer.appendChild(div);
-    });
-}
-
-// ===============================
-// ADICIONAR AO CARRINHO
-// ===============================
-
-cardapioContainer.addEventListener("click", (e) => {
-
-    const botao = e.target.closest(".btn-add");
-
-    if (botao) {
-        const id = parseInt(botao.getAttribute("data-id"));
-        adicionarAoCarrinho(id);
-    }
-});
-
-function adicionarAoCarrinho(id) {
-
-    const produto = produtos.find(p => p.id === id);
-
-    const itemExistente = carrinho.find(item => item.id === id);
-
-    if (itemExistente) {
-        itemExistente.quantidade += 1;
-    } else {
-        carrinho.push({
-            ...produto,
-            quantidade: 1
-        });
-    }
-
-    atualizarInterface();
-}
-
-// ===============================
-// ATUALIZAR INTERFACE
-// ===============================
-
-function atualizarInterface() {
-
-    let total = 0;
-    let totalItens = 0;
-
-    carrinho.forEach(item => {
-        total += item.preco * item.quantidade;
-        totalItens += item.quantidade;
-    });
-
-    const totalFormatado =
-        `R$ ${total.toFixed(2).replace('.', ',')}`;
-
-    totalBarra.textContent = totalFormatado;
-    totalModal.textContent = totalFormatado;
-    contadorCarrinho.textContent = totalItens;
-}
-
-// ===============================
-// MODAL CARRINHO
-// ===============================
-
-btnVerCarrinho.addEventListener("click", () => {
-
-    renderizarCarrinhoModal();
-
-    modalCarrinho.classList.remove("hidden");
-});
-
-btnFecharModal.addEventListener("click", () => {
-
-    modalCarrinho.classList.add("hidden");
-});
-
-modalCarrinho.addEventListener("click", (e) => {
-
-    if (e.target === modalCarrinho) {
-        modalCarrinho.classList.add("hidden");
-    }
-});
-
-// ===============================
-// RENDERIZAR CARRINHO
-// ===============================
-
-function renderizarCarrinhoModal() {
-
-    itensCarrinhoContainer.innerHTML = "";
-
-    if (carrinho.length === 0) {
-
-        itensCarrinhoContainer.innerHTML = `
-            <p class="text-gray-500 text-center py-4">
-                Seu carrinho está vazio.
-            </p>
-        `;
-
-        return;
-    }
-
-    carrinho.forEach(item => {
-
-        const div = document.createElement("div");
-
-        div.className =
-            "flex justify-between items-center bg-amber-50 p-3 rounded-xl border border-amber-100";
-
-        div.innerHTML = `
             <div class="flex-1">
 
                 <h4 class="font-bold text-gray-900 text-sm">
-                    ${item.nome}
+                    ${prod.nome}
                 </h4>
 
-                <span class="text-xs text-gray-500">
-                    R$ ${item.preco.toFixed(2).replace('.', ',')} un.
-                </span>
+                <p class="text-sm font-semibold text-yellow-600 mt-0.5">
+                    R$ ${prod.preco.toFixed(2)}
+                </p>
             </div>
 
-            <div class="flex items-center gap-3">
-
-                <button 
-                    class="text-red-500 hover:text-red-700 px-1 font-bold btn-diminuir"
-                    data-id="${item.id}"
-                >
-                    -
-                </button>
-
-                <span class="font-semibold text-sm bg-white border px-2 py-0.5 rounded-md">
-                    ${item.quantidade}
-                </span>
-
-                <button 
-                    class="text-green-500 hover:text-green-700 px-1 font-bold btn-aumentar"
-                    data-id="${item.id}"
-                >
-                    +
-                </button>
-            </div>
+            <button
+                onclick="deletarProduto(${prod.id})"
+                class="text-gray-400 hover:text-red-500 p-2"
+            >
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
         `;
 
-        itensCarrinhoContainer.appendChild(div);
+        grid.appendChild(div);
     });
 }
 
-// ===============================
-// ALTERAR QUANTIDADE
-// ===============================
+// ======================================
+// NOVO PRODUTO
+// ======================================
 
-itensCarrinhoContainer.addEventListener("click", (e) => {
+document.getElementById("btn-novo-produto")
+.addEventListener("click", () => {
 
-    if (e.target.classList.contains("btn-aumentar")) {
+    const nome =
+        prompt("Nome da Batata Gourmet:");
 
-        const id = parseInt(e.target.getAttribute("data-id"));
+    const preco =
+        parseFloat(prompt("Preço (ex: 39.90):"));
 
-        const item = carrinho.find(i => i.id === id);
+    if (nome && preco) {
 
-        item.quantidade++;
+        produtosAdmin.push({
 
-        atualizarInterface();
+            id: Date.now(),
 
-        renderizarCarrinhoModal();
-    }
+            nome,
 
-    if (e.target.classList.contains("btn-diminuir")) {
+            preco,
 
-        const id = parseInt(e.target.getAttribute("data-id"));
+            imagem:
+                "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?q=80&w=1000"
+        });
 
-        const idx = carrinho.findIndex(i => i.id === id);
-
-        if (carrinho[idx].quantidade > 1) {
-            carrinho[idx].quantidade--;
-        } else {
-            carrinho.splice(idx, 1);
-        }
-
-        atualizarInterface();
-
-        renderizarCarrinhoModal();
+        renderizarProdutos();
     }
 });
 
-// ===============================
-// FINALIZAR PEDIDO WHATSAPP
-// ===============================
+// ======================================
+// DELETAR PRODUTO
+// ======================================
 
-btnFinalizarPedido.addEventListener("click", () => {
+window.deletarProduto = (id) => {
 
-    if (carrinho.length === 0) {
-        return alert("Seu carrinho está vazio!");
+    produtosAdmin =
+        produtosAdmin.filter(p => p.id !== id);
+
+    renderizarProdutos();
+};
+
+// ======================================
+// CUPONS
+// ======================================
+
+const formCupom =
+    document.getElementById("form-cupom");
+
+formCupom.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    const codigo =
+        document.getElementById("cupom-codigo")
+        .value
+        .trim()
+        .toUpperCase();
+
+    const valor =
+        parseFloat(
+            document.getElementById("cupom-valor").value
+        );
+
+    if (codigo && valor) {
+
+        cupons.push({
+            codigo,
+            valor,
+            ativo: true
+        });
+
+        formCupom.reset();
+
+        renderizarCupons();
     }
+});
 
-    if (inputEndereco.value.trim() === "") {
+// ======================================
+// RENDER CUPONS
+// ======================================
 
-        avisoEndereco.classList.remove("hidden");
+function renderizarCupons() {
 
-        inputEndereco.classList.add("border-red-500");
+    const tabela =
+        document.getElementById("tabela-cupons");
 
-        return;
-    }
+    tabela.innerHTML = "";
 
-    avisoEndereco.classList.add("hidden");
+    cupons.forEach(cupom => {
 
-    inputEndereco.classList.remove("border-red-500");
+        const tr = document.createElement("tr");
 
-    let msg = `*🥔 NOVO PEDIDO - BATATA GOURMET 🥔*\\n\\n`;
+        tr.className =
+            "border-b hover:bg-yellow-50 transition-all";
 
-    carrinho.forEach(item => {
+        tr.innerHTML = `
+            <td class="p-4 font-mono font-bold text-gray-900">
+                ${cupom.codigo}
+            </td>
 
-        msg += `• *${item.quantidade}x* ${item.nome} (R$ ${(item.preco * item.quantidade).toFixed(2)})\\n`;
+            <td class="p-4 font-semibold text-green-600">
+                R$ ${cupom.valor.toFixed(2)}
+            </td>
+
+            <td class="p-4">
+
+                <span class="px-2 py-0.5 text-xs font-medium rounded-full
+                    ${
+                        cupom.ativo
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-gray-100 text-gray-600'
+                    }
+                ">
+
+                    ${cupom.ativo ? 'Ativo' : 'Inativo'}
+                </span>
+            </td>
+
+            <td class="p-4 text-right">
+
+                <button
+                    onclick="alternarCupom('${cupom.codigo}')"
+                    class="text-xs font-semibold
+                    ${
+                        cupom.ativo
+                        ? 'text-red-500 hover:text-red-700'
+                        : 'text-green-500 hover:text-green-700'
+                    }"
+                >
+                    ${cupom.ativo ? 'Desativar' : 'Ativar'}
+                </button>
+            </td>
+        `;
+
+        tabela.appendChild(tr);
     });
 
-    let total =
-        carrinho.reduce((acc, item) =>
-            acc + (item.preco * item.quantidade), 0);
+    document.getElementById("dash-total-cupons")
+    .textContent =
+        cupons.filter(c => c.ativo).length;
+}
 
-    msg += `\\n*Total:* R$ ${total.toFixed(2)}`;
+// ======================================
+// ATIVAR / DESATIVAR CUPOM
+// ======================================
 
-    msg += `\\n\\n*📍 Endereço:* ${inputEndereco.value}`;
+window.alternarCupom = (codigo) => {
 
-    // ALTERE PARA SEU WHATSAPP
-    const telefone = "5511992952215";
+    const cupom =
+        cupons.find(c => c.codigo === codigo);
 
-    const url =
-        `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(msg)}`;
+    cupom.ativo = !cupom.ativo;
 
-    carrinho = [];
+    renderizarCupons();
+};
 
-    atualizarInterface();
+// ======================================
+// CHARTS
+// ======================================
 
-    inputEndereco.value = "";
+function inicializarGraficos() {
 
-    modalCarrinho.classList.add("hidden");
+    // ======================================
+    // GRÁFICO FATURAMENTO
+    // ======================================
 
-    window.open(url, "_blank");
-});
+    const ctxVendas =
+        document.getElementById('chart-vendas')
+        .getContext('2d');
 
-// ===============================
-// INICIALIZAÇÃO
-// ===============================
+    new Chart(ctxVendas, {
 
-renderizarCardapio();
+        type: 'line',
+
+        data: {
+
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+
+            datasets: [{
+
+                label: 'Faturamento (R$)',
+
+                data: [
+                    18000,
+                    22000,
+                    19500,
+                    26800,
+                    29400,
+                    33200
+                ],
+
+                borderColor: '#eab308',
+
+                backgroundColor:
+                    'rgba(234, 179, 8, 0.15)',
+
+                tension: 0.3,
+
+                fill: true
+            }]
+        },
+
+        options: {
+            responsive: true
+        }
+    });
+
+    // ======================================
+    // MAIS VENDIDOS
+    // ======================================
+
+    const ctxProdutos =
+        document.getElementById('chart-produtos')
+        .getContext('2d');
+
+    new Chart(ctxProdutos, {
+
+        type: 'doughnut',
+
+        data: {
+
+            labels: [
+                'Cheddar Bacon',
+                'Frango Catupiry',
+                'Costela BBQ',
+                'Camarão Especial'
+            ],
+
+            datasets: [{
+
+                data: [45, 30, 15, 10],
+
+                backgroundColor: [
+                    '#eab308',
+                    '#f97316',
+                    '#92400e',
+                    '#16a34a'
+                ]
+            }]
+        },
+
+        options: {
+            responsive: true
+        }
+    });
+}
