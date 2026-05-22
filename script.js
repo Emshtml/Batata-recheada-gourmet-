@@ -1,11 +1,10 @@
 // ===============================
-// BANCO DE DADOS - BATATA GOURMET
+// CARDÁPIO BATATA GOURMET
 // ===============================
 
 const produtos = [
     {
-        idconst produtos = [
-    {
+        id: 1,
         nome: "Batata Cheddar Bacon",
         descricao: "Batata recheada com cheddar cremoso, bacon crocante e cebolinha fresca.",
         preco: 32.90,
@@ -100,41 +99,43 @@ function renderizarCardapio() {
         const div = document.createElement("div");
 
         div.className =
-            "produto-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-amber-100 flex flex-col";
+            "bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-gray-100 flex flex-col";
 
         div.innerHTML = `
             <img 
                 src="${produto.imagem}" 
                 alt="${produto.nome}" 
-                class="w-full h-52 object-cover"
+                class="w-full h-56 object-cover"
             >
 
-            <div class="p-5 flex flex-col flex-1 justify-between">
+            <div class="p-4 flex flex-col flex-1 justify-between">
 
                 <div>
-                    <h3 class="font-bold text-xl text-amber-900 mb-2">
+                    <h3 class="font-bold text-lg text-gray-900 mb-1">
                         ${produto.nome}
                     </h3>
 
-                    <p class="text-gray-500 text-sm leading-relaxed mb-5">
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">
                         ${produto.descricao}
                     </p>
                 </div>
 
                 <div class="flex items-center justify-between mt-auto">
 
-                    <span class="font-bold text-2xl text-yellow-600">
-                        R$ ${produto.preco.toFixed(2).replace('.', ',')}
+                    <span class="font-bold text-2xl text-orange-600">
+                        R$ ${produto.preco.toFixed(2).replace(".", ",")}
                     </span>
 
-                    <button 
-                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition-all active:scale-95 btn-add"
+                    <button
+                        class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition-all active:scale-95 btn-add"
                         data-id="${produto.id}"
                     >
                         <i class="fa-solid fa-plus mr-1"></i>
                         Adicionar
                     </button>
+
                 </div>
+
             </div>
         `;
 
@@ -151,7 +152,9 @@ cardapioContainer.addEventListener("click", (e) => {
     const botao = e.target.closest(".btn-add");
 
     if (botao) {
+
         const id = parseInt(botao.getAttribute("data-id"));
+
         adicionarAoCarrinho(id);
     }
 });
@@ -184,15 +187,19 @@ function atualizarInterface() {
     let totalItens = 0;
 
     carrinho.forEach(item => {
+
         total += item.preco * item.quantidade;
+
         totalItens += item.quantidade;
     });
 
     const totalFormatado =
-        `R$ ${total.toFixed(2).replace('.', ',')}`;
+        `R$ ${total.toFixed(2).replace(".", ",")}`;
 
     totalBarra.textContent = totalFormatado;
+
     totalModal.textContent = totalFormatado;
+
     contadorCarrinho.textContent = totalItens;
 }
 
@@ -215,6 +222,7 @@ btnFecharModal.addEventListener("click", () => {
 modalCarrinho.addEventListener("click", (e) => {
 
     if (e.target === modalCarrinho) {
+
         modalCarrinho.classList.add("hidden");
     }
 });
@@ -243,7 +251,7 @@ function renderizarCarrinhoModal() {
         const div = document.createElement("div");
 
         div.className =
-            "flex justify-between items-center bg-amber-50 p-3 rounded-xl border border-amber-100";
+            "flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-100";
 
         div.innerHTML = `
             <div class="flex-1">
@@ -253,13 +261,14 @@ function renderizarCarrinhoModal() {
                 </h4>
 
                 <span class="text-xs text-gray-500">
-                    R$ ${item.preco.toFixed(2).replace('.', ',')} un.
+                    R$ ${item.preco.toFixed(2).replace(".", ",")} un.
                 </span>
+
             </div>
 
             <div class="flex items-center gap-3">
 
-                <button 
+                <button
                     class="text-red-500 hover:text-red-700 px-1 font-bold btn-diminuir"
                     data-id="${item.id}"
                 >
@@ -270,12 +279,13 @@ function renderizarCarrinhoModal() {
                     ${item.quantidade}
                 </span>
 
-                <button 
+                <button
                     class="text-green-500 hover:text-green-700 px-1 font-bold btn-aumentar"
                     data-id="${item.id}"
                 >
                     +
                 </button>
+
             </div>
         `;
 
@@ -309,8 +319,11 @@ itensCarrinhoContainer.addEventListener("click", (e) => {
         const idx = carrinho.findIndex(i => i.id === id);
 
         if (carrinho[idx].quantidade > 1) {
+
             carrinho[idx].quantidade--;
+
         } else {
+
             carrinho.splice(idx, 1);
         }
 
@@ -321,13 +334,16 @@ itensCarrinhoContainer.addEventListener("click", (e) => {
 });
 
 // ===============================
-// FINALIZAR PEDIDO WHATSAPP
+// FINALIZAR PEDIDO
 // ===============================
 
 btnFinalizarPedido.addEventListener("click", () => {
 
     if (carrinho.length === 0) {
-        return alert("Seu carrinho está vazio!");
+
+        alert("Seu carrinho está vazio!");
+
+        return;
     }
 
     if (inputEndereco.value.trim() === "") {
@@ -343,22 +359,22 @@ btnFinalizarPedido.addEventListener("click", () => {
 
     inputEndereco.classList.remove("border-red-500");
 
-    let msg = `*🥔 NOVO PEDIDO - BATATA GOURMET 🥔*\\n\\n`;
+    let msg = `🍟 *NOVO PEDIDO - BATATA GOURMET* 🍟\n\n`;
 
     carrinho.forEach(item => {
 
-        msg += `• *${item.quantidade}x* ${item.nome} (R$ ${(item.preco * item.quantidade).toFixed(2)})\\n`;
+        msg += `• ${item.quantidade}x ${item.nome}\n`;
     });
 
-    let total =
-        carrinho.reduce((acc, item) =>
-            acc + (item.preco * item.quantidade), 0);
+    let total = carrinho.reduce(
+        (acc, item) => acc + (item.preco * item.quantidade),
+        0
+    );
 
-    msg += `\\n*Total:* R$ ${total.toFixed(2)}`;
+    msg += `\n💰 *Total:* R$ ${total.toFixed(2)}`;
 
-    msg += `\\n\\n*📍 Endereço:* ${inputEndereco.value}`;
+    msg += `\n📍 *Endereço:* ${inputEndereco.value}`;
 
-    // ALTERE PARA SEU WHATSAPP
     const telefone = "5511999999999";
 
     const url =
