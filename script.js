@@ -3,15 +3,14 @@
 // ===============================
 
 const produtos = [
-    {
-        id: 1,
-        nome: "Batata Cheddar Bacon",
-        descricao: "Batata recheada com cheddar cremoso, bacon crocante e cebolinha fresca.",
-        preco: 32.90,
-        imagem: "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?q=80&w=1000"
-    },
+    {{
+    id: 1,
+    nome: "Batata Cheddar Bacon",
+    descricao: "Batata recheada com cheddar cremoso, bacon crocante e cebolinha fresca.",
+    preco: 32.90,
+    imagem: "./assets/img/Gemini_Generated_Image_2yz4w52yz4w52yz4 (7).png"
+},
 
-    {
         id: 2,
         nome: "Batata Frango Catupiry",
         descricao: "Frango desfiado temperado com Catupiry original e queijo gratinado.",
