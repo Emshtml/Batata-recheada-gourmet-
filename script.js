@@ -4,11 +4,12 @@
 
 const produtos = [
     {
-        id: 1,
+        idconst produtos = [
+    {
         nome: "Batata Cheddar Bacon",
         descricao: "Batata recheada com cheddar cremoso, bacon crocante e cebolinha fresca.",
         preco: 32.90,
-        imagem: "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?q=80&w=1000"
+        imagem: "./assets/img/batata-cheddar-bacon.png"
     },
 
     {
@@ -16,7 +17,7 @@ const produtos = [
         nome: "Batata Frango Catupiry",
         descricao: "Frango desfiado temperado com Catupiry original e queijo gratinado.",
         preco: 34.90,
-        imagem: "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1000"
+        imagem: "./assets/img/batata-frango-catupiry.png"
     },
 
     {
@@ -24,7 +25,7 @@ const produtos = [
         nome: "Batata Calabresa Suprema",
         descricao: "Calabresa acebolada, mussarela derretida e molho especial da casa.",
         preco: 33.90,
-        imagem: "https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=1000"
+        imagem: "./assets/img/batata-calabresa-suprema.png"
     },
 
     {
@@ -32,7 +33,7 @@ const produtos = [
         nome: "Batata Costela Barbecue",
         descricao: "Costela desfiada ao molho barbecue com cheddar e cebola crispy.",
         preco: 39.90,
-        imagem: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?q=80&w=1000"
+        imagem: "./assets/img/batata-costela-barbecue.png"
     },
 
     {
@@ -40,7 +41,7 @@ const produtos = [
         nome: "Batata Strogonoff Gourmet",
         descricao: "Strogonoff cremoso de carne com batata palha e parmesão ralado.",
         preco: 37.90,
-        imagem: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000"
+        imagem: "./assets/img/batata-strogonoff-gourmet.png"
     },
 
     {
@@ -48,7 +49,7 @@ const produtos = [
         nome: "Batata Vegetariana Premium",
         descricao: "Brócolis, milho, champignon, queijo e molho branco artesanal.",
         preco: 31.90,
-        imagem: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1000"
+        imagem: "./assets/img/batata-vegetariana-premium.png"
     },
 
     {
@@ -56,7 +57,7 @@ const produtos = [
         nome: "Batata Camarão Especial",
         descricao: "Camarões salteados no alho com requeijão cremoso e queijo gratinado.",
         preco: 44.90,
-        imagem: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000"
+        imagem: "./assets/img/batata-camarao-especial.png"
     },
 
     {
@@ -64,7 +65,7 @@ const produtos = [
         nome: "Batata Filé Mignon",
         descricao: "Cubos de filé mignon ao molho especial com queijo premium gratinado.",
         preco: 42.90,
-        imagem: "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1000"
+        imagem: "./assets/img/batata-file-mignon.png"
     }
 ];
 
