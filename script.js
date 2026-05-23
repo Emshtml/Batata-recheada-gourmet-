@@ -5,7 +5,7 @@
 const produtos = [
     {
         id: 1,
-        nome: "Batata Cheddar Bacon",
+        nome: "imagem: "./assets/img/batata-cheddar-bacon.png"",
         descricao: "Batata recheada com cheddar cremoso, bacon crocante e cebolinha fresca.",
         preco: 32.90,
         imagem: "./assets/img/batata-cheddar-bacon.png"
