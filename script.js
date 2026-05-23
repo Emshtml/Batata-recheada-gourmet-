@@ -1,11 +1,12 @@
-// ===============================
-// CARDÁPIO BATATA GOURMET
-// ===============================
+// ========================================
+// CARDÁPIO BATATA RECHEADA GOURMET
+// ========================================
 
 const produtos = [
+
     {
         id: 1,
-        nome: "imagem: "./assets/img/batata-cheddar-bacon.png"",
+        nome: "Batata Cheddar Bacon",
         descricao: "Batata recheada com cheddar cremoso, bacon crocante e cebolinha fresca.",
         preco: 32.90,
         imagem: "./assets/img/batata-cheddar-bacon.png"
@@ -66,13 +67,14 @@ const produtos = [
         preco: 42.90,
         imagem: "./assets/img/batata-file-mignon.png"
     }
+
 ];
 
 let carrinho = [];
 
-// ===============================
+// ========================================
 // ELEMENTOS DOM
-// ===============================
+// ========================================
 
 const cardapioContainer = document.getElementById("cardapio");
 const modalCarrinho = document.getElementById("modal-carrinho");
@@ -86,9 +88,9 @@ const inputEndereco = document.getElementById("input-endereco");
 const avisoEndereco = document.getElementById("aviso-endereco");
 const btnFinalizarPedido = document.getElementById("btn-finalizar-pedido");
 
-// ===============================
+// ========================================
 // RENDERIZAR CARDÁPIO
-// ===============================
+// ========================================
 
 function renderizarCardapio() {
 
@@ -96,38 +98,40 @@ function renderizarCardapio() {
 
     produtos.forEach(produto => {
 
-        const div = document.createElement("div");
+        const card = document.createElement("div");
 
-        div.className =
-            "bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-gray-100 flex flex-col";
+        card.className =
+            "bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col";
 
-        div.innerHTML = `
-            <img 
-                src="${produto.imagem}" 
-                alt="${produto.nome}" 
+        card.innerHTML = `
+            <img
+                src="${produto.imagem}"
+                alt="${produto.nome}"
                 class="w-full h-56 object-cover"
             >
 
-            <div class="p-4 flex flex-col flex-1 justify-between">
+            <div class="p-5 flex flex-col flex-1">
 
-                <div>
-                    <h3 class="font-bold text-lg text-gray-900 mb-1">
+                <div class="flex-1">
+
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">
                         ${produto.nome}
                     </h3>
 
-                    <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                    <p class="text-gray-500 text-sm leading-relaxed mb-5">
                         ${produto.descricao}
                     </p>
+
                 </div>
 
-                <div class="flex items-center justify-between mt-auto">
+                <div class="flex items-center justify-between">
 
                     <span class="font-bold text-2xl text-orange-600">
                         R$ ${produto.preco.toFixed(2).replace(".", ",")}
                     </span>
 
                     <button
-                        class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition-all active:scale-95 btn-add"
+                        class="btn-add bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition-all"
                         data-id="${produto.id}"
                     >
                         <i class="fa-solid fa-plus mr-1"></i>
@@ -139,24 +143,23 @@ function renderizarCardapio() {
             </div>
         `;
 
-        cardapioContainer.appendChild(div);
+        cardapioContainer.appendChild(card);
     });
 }
 
-// ===============================
+// ========================================
 // ADICIONAR AO CARRINHO
-// ===============================
+// ========================================
 
 cardapioContainer.addEventListener("click", (e) => {
 
     const botao = e.target.closest(".btn-add");
 
-    if (botao) {
+    if (!botao) return;
 
-        const id = parseInt(botao.getAttribute("data-id"));
+    const id = parseInt(botao.dataset.id);
 
-        adicionarAoCarrinho(id);
-    }
+    adicionarAoCarrinho(id);
 });
 
 function adicionarAoCarrinho(id) {
@@ -166,8 +169,11 @@ function adicionarAoCarrinho(id) {
     const itemExistente = carrinho.find(item => item.id === id);
 
     if (itemExistente) {
-        itemExistente.quantidade += 1;
+
+        itemExistente.quantidade++;
+
     } else {
+
         carrinho.push({
             ...produto,
             quantidade: 1
@@ -177,9 +183,9 @@ function adicionarAoCarrinho(id) {
     atualizarInterface();
 }
 
-// ===============================
+// ========================================
 // ATUALIZAR INTERFACE
-// ===============================
+// ========================================
 
 function atualizarInterface() {
 
@@ -197,15 +203,13 @@ function atualizarInterface() {
         `R$ ${total.toFixed(2).replace(".", ",")}`;
 
     totalBarra.textContent = totalFormatado;
-
     totalModal.textContent = totalFormatado;
-
     contadorCarrinho.textContent = totalItens;
 }
 
-// ===============================
-// MODAL CARRINHO
-// ===============================
+// ========================================
+// MODAL
+// ========================================
 
 btnVerCarrinho.addEventListener("click", () => {
 
@@ -227,9 +231,9 @@ modalCarrinho.addEventListener("click", (e) => {
     }
 });
 
-// ===============================
+// ========================================
 // RENDERIZAR CARRINHO
-// ===============================
+// ========================================
 
 function renderizarCarrinhoModal() {
 
@@ -238,7 +242,7 @@ function renderizarCarrinhoModal() {
     if (carrinho.length === 0) {
 
         itensCarrinhoContainer.innerHTML = `
-            <p class="text-gray-500 text-center py-4">
+            <p class="text-center text-gray-500 py-5">
                 Seu carrinho está vazio.
             </p>
         `;
@@ -254,33 +258,40 @@ function renderizarCarrinhoModal() {
             "flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-100";
 
         div.innerHTML = `
-            <div class="flex-1">
+            <div class="flex items-center gap-3">
 
-                <h4 class="font-bold text-gray-900 text-sm">
-                    ${item.nome}
-                </h4>
+                <img
+                    src="${item.imagem}"
+                    class="w-16 h-16 rounded-xl object-cover"
+                >
 
-                <span class="text-xs text-gray-500">
-                    R$ ${item.preco.toFixed(2).replace(".", ",")} un.
-                </span>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-900">
+                        ${item.nome}
+                    </h4>
+
+                    <span class="text-xs text-gray-500">
+                        R$ ${item.preco.toFixed(2).replace(".", ",")}
+                    </span>
+                </div>
 
             </div>
 
             <div class="flex items-center gap-3">
 
                 <button
-                    class="text-red-500 hover:text-red-700 px-1 font-bold btn-diminuir"
+                    class="btn-diminuir text-red-500 font-bold text-lg"
                     data-id="${item.id}"
                 >
                     -
                 </button>
 
-                <span class="font-semibold text-sm bg-white border px-2 py-0.5 rounded-md">
+                <span class="font-bold text-sm">
                     ${item.quantidade}
                 </span>
 
                 <button
-                    class="text-green-500 hover:text-green-700 px-1 font-bold btn-aumentar"
+                    class="btn-aumentar text-green-500 font-bold text-lg"
                     data-id="${item.id}"
                 >
                     +
@@ -293,15 +304,15 @@ function renderizarCarrinhoModal() {
     });
 }
 
-// ===============================
+// ========================================
 // ALTERAR QUANTIDADE
-// ===============================
+// ========================================
 
 itensCarrinhoContainer.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("btn-aumentar")) {
 
-        const id = parseInt(e.target.getAttribute("data-id"));
+        const id = parseInt(e.target.dataset.id);
 
         const item = carrinho.find(i => i.id === id);
 
@@ -314,17 +325,17 @@ itensCarrinhoContainer.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("btn-diminuir")) {
 
-        const id = parseInt(e.target.getAttribute("data-id"));
+        const id = parseInt(e.target.dataset.id);
 
-        const idx = carrinho.findIndex(i => i.id === id);
+        const item = carrinho.find(i => i.id === id);
 
-        if (carrinho[idx].quantidade > 1) {
+        if (item.quantidade > 1) {
 
-            carrinho[idx].quantidade--;
+            item.quantidade--;
 
         } else {
 
-            carrinho.splice(idx, 1);
+            carrinho = carrinho.filter(i => i.id !== id);
         }
 
         atualizarInterface();
@@ -333,9 +344,9 @@ itensCarrinhoContainer.addEventListener("click", (e) => {
     }
 });
 
-// ===============================
-// FINALIZAR PEDIDO
-// ===============================
+// ========================================
+// FINALIZAR PEDIDO WHATSAPP
+// ========================================
 
 btnFinalizarPedido.addEventListener("click", () => {
 
@@ -359,26 +370,25 @@ btnFinalizarPedido.addEventListener("click", () => {
 
     inputEndereco.classList.remove("border-red-500");
 
-    let msg = `🍟 *NOVO PEDIDO - BATATA GOURMET* 🍟\n\n`;
+    let mensagem = "🍟 *NOVO PEDIDO - BATATA GOURMET* 🍟\n\n";
 
     carrinho.forEach(item => {
 
-        msg += `• ${item.quantidade}x ${item.nome}\n`;
+        mensagem += `• ${item.quantidade}x ${item.nome}\n`;
     });
 
-    let total = carrinho.reduce(
-        (acc, item) => acc + (item.preco * item.quantidade),
-        0
-    );
+    const total = carrinho.reduce((acc, item) => {
+        return acc + item.preco * item.quantidade;
+    }, 0);
 
-    msg += `\n💰 *Total:* R$ ${total.toFixed(2)}`;
+    mensagem += `\n💰 *Total:* R$ ${total.toFixed(2)}`;
 
-    msg += `\n📍 *Endereço:* ${inputEndereco.value}`;
+    mensagem += `\n📍 *Endereço:* ${inputEndereco.value}`;
 
     const telefone = "5511999999999";
 
     const url =
-        `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(msg)}`;
+        `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
 
     carrinho = [];
 
@@ -391,8 +401,8 @@ btnFinalizarPedido.addEventListener("click", () => {
     window.open(url, "_blank");
 });
 
-// ===============================
+// ========================================
 // INICIALIZAÇÃO
-// ===============================
+// ========================================
 
 renderizarCardapio();
