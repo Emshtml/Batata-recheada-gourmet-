@@ -1,4 +1,43 @@
-# 🥔 Batata Gourmet Delivery Premium
+Copyright (c) 2026 Thereza Candida / Emshtml
+
+Todos os direitos reservados.
+
+BATATA GOURMET é um software proprietário.
+É proibido copiar, modificar, redistribuir, sublicenciar,
+revender, publicar ou utilizar qualquer parte deste sistema
+sem autorização formal do proprietário.
+
+O uso deste software é permitido apenas mediante licença
+válida concedida pelo autor.
+
+Este sistema, incluindo:
+- código-fonte
+- interface
+- design
+- identidade visual
+- estrutura
+- funcionalidades
+- banco de dados
+- imagens
+- scripts
+- documentação
+
+está protegido pelas leis de direitos autorais e propriedade
+intelectual aplicáveis no Brasil e internacionalmente.
+
+É proibida engenharia reversa, clonagem, reprodução parcial
+ou integral, ou criação de sistemas derivados sem permissão.
+
+Licenciado para uso exclusivo do cliente autorizado.
+
+Autor:
+Thereza Candida / Emshtml
+
+Contato:
+[seu-email@dominio.com]
+
+Ano:
+2026 🥔 Batata Gourmet Delivery Premium
 
 <div align="center">
 
