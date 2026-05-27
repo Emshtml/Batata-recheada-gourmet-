@@ -1,3 +1,16 @@
+/*
+========================================================
+ Batata Gourmet Delivery
+ Copyright (c) 2026 Thereza Candida / Emshtml
+
+ Todos os direitos reservados.
+
+ Este código-fonte é protegido por direitos autorais.
+ A utilização, modificação, distribuição ou revenda
+ sem autorização é proibida.
+
+ Projeto desenvolvido por Emshtml.
+========================================================
 // ========================================
 // CARDÁPIO BATATA RECHEADA GOURMET
 // ========================================
