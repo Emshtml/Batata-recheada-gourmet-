@@ -1,0 +1,15 @@
+Batata Gourmet Delivery
+Copyright (c) 2026 Thereza Candida / Emshtml
+
+Todos os direitos reservados.
+
+Este software e todos os seus componentes, incluindo
+código-fonte, design, identidade visual, imagens,
+scripts e funcionalidades são protegidos pelas leis
+de direitos autorais.
+
+Nenhuma parte deste projeto pode ser reproduzida,
+copiada, modificada, distribuída ou revendida sem
+autorização expressa da autora.
+
+Projeto desenvolvido por Emshtml.
