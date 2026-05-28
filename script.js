@@ -1,6 +1,3 @@
-/*
-======================================================
-========================================================
 // ========================================
 // CARDÁPIO BATATA RECHEADA GOURMET
 // ========================================
@@ -35,7 +32,7 @@ const produtos = [
         id: 4,
         nome: "Batata Costela Barbecue",
         descricao: "Costela desfiada ao molho barbecue com cheddar e cebola crispy.",
-        preco: 45.90,
+        preco: 39.90,
         imagem: "./assets/img/batata-costela-barbecue.png"
     },
 
@@ -59,7 +56,7 @@ const produtos = [
         id: 7,
         nome: "Batata Camarão Especial",
         descricao: "Camarões salteados no alho com requeijão cremoso e queijo gratinado.",
-        preco: 60.90,
+        preco: 44.90,
         imagem: "./assets/img/batata-camarao-especial.png"
     },
 
@@ -67,7 +64,7 @@ const produtos = [
         id: 8,
         nome: "Batata Filé Mignon",
         descricao: "Cubos de filé mignon ao molho especial com queijo premium gratinado.",
-        preco: 86.90,
+        preco: 42.90,
         imagem: "./assets/img/batata-file-mignon.png"
     }
 
@@ -388,7 +385,7 @@ btnFinalizarPedido.addEventListener("click", () => {
 
     mensagem += `\n📍 *Endereço:* ${inputEndereco.value}`;
 
-    const telefone = "5511976794749";
+    const telefone = "5511999999999";
 
     const url =
         `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
