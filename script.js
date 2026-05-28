@@ -385,7 +385,7 @@ btnFinalizarPedido.addEventListener("click", () => {
 
     mensagem += `\n📍 *Endereço:* ${inputEndereco.value}`;
 
-    const telefone = "5511999999999";
+    const telefone = "5511976794749";
 
     const url =
         `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
